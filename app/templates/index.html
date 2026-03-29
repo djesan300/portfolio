@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моё портфолио</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; background: #f5f5f5; }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 40px; }
+        .skill { display: inline-block; background: #4CAF50; color: white; padding: 5px 15px; margin: 5px; border-radius: 20px; }
+        .project { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .project h3 { margin: 0 0 10px 0; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Привет, я Максим 👋</h1>
+    <p>DevOps engineer — автоматизирую инфраструктуру</p>
+
+    <h2>Навыки</h2>
+    {% for skill in skills %}
+        <span class="skill">{{ skill }}</span>
+    {% endfor %}
+
+    <h2>Проекты</h2>
+    {% for name, desc in projects %}
+        <div class="project">
+            <h3>{{ name }}</h3>
+            <p>{{ desc }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+---
+- name: porfolio
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: install depend
+      yum:
+        name:
+          - python3-pip
+        state: present
+
+    - name: docker install
+      dnf: name=docker state=present
+
+    - name: start dock
+      service: name=docker state=started enabled=yes
+
+    - name: install docker-compose binary
+      get_url:
+        url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: run compose
+      command: docker-compose up -d --build
+      args:
+        chdir: /home/ec2-user/portfolio
+
+    - name: add user
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+    - name: copy project
+      copy:
+        src: ~/portfolio/
+        dest: /home/ec2-user/portfolio/
+        owner: ec2-user
+        group: ec2-user
+
+
